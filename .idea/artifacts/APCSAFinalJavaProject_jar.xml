@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="APCSAFinalJavaProject:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/APCSAFinalJavaProject_jar</output-path>
+    <root id="archive" name="APCSAFinalJavaProject.jar">
+      <element id="module-output" name="APCSAFinalJavaProject" />
+    </root>
+  </artifact>
+</component>
