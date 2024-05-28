@@ -1,19 +1,18 @@
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.function.Consumer;
 
-public class SpecificInfoDialog extends JDialog {
+public class InfoDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JTextField surnameField;
-    private JTextField idField;
-    private Consumer<Student> okListener;
+    private JLabel info;
 
-    public SpecificInfoDialog() {
+    public InfoDialog(String titleText, String infoText) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        this.setTitle(titleText);
+        info.setText(infoText);
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -43,25 +42,8 @@ public class SpecificInfoDialog extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    public SpecificInfoDialog(Student value){
-        this();
-        setFieldValues(value);
-    }
-
-    public SpecificInfoDialog(Student value, Consumer<Student> listener){
-        this();
-        setFieldValues(value);
-        okListener = listener;
-    }
-
-    public void setFieldValues(Student value){
-        surnameField.setText(value.getSurname());
-        idField.setText(String.valueOf(value.getId()));
-    }
-
     private void onOK() {
         // add your code here
-        okListener.accept(new Student("", surnameField.getText(), "", 0, Integer.parseInt(idField.getText())));
         dispose();
     }
 
@@ -71,7 +53,7 @@ public class SpecificInfoDialog extends JDialog {
     }
 
     public static void main(String[] args) {
-        SpecificInfoDialog dialog = new SpecificInfoDialog();
+        InfoDialog dialog = new InfoDialog("Info", "Info");
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);

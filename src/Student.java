@@ -12,7 +12,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return String.format("%s-%s-%s-%s-%s", getName(), getSurname(), getAge(), getGrade(), getId());
+        return String.format("%s %s, Age %s, Grade %s, ID %s", getName(), getSurname(), getAge(), getGrade(), getId());
     }
 
     public String getName() {
@@ -53,5 +53,17 @@ public class Student {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return age == student.age &&
+                id == student.id &&
+                name != null ? name.equals(student.name) : student.name != null &&
+                surname != null ? surname.equals(student.surname) : student.surname == null &&
+                grade.equals(student.grade);
     }
 }

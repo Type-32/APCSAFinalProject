@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.function.Consumer;
 
 public class StudentInfoDialog extends JDialog {
     private JPanel contentPane;
@@ -10,6 +11,7 @@ public class StudentInfoDialog extends JDialog {
     private JTextField ageField;
     private JTextField idField;
     private JTextField gradeField;
+    private Consumer<Student> okListener;
 
     public StudentInfoDialog() {
         setContentPane(contentPane);
@@ -49,6 +51,12 @@ public class StudentInfoDialog extends JDialog {
         setFieldValues(value);
     }
 
+    public StudentInfoDialog(Student value, Consumer<Student> listener){
+        this();
+        setFieldValues(value);
+        okListener = listener;
+    }
+
     public void setFieldValues(Student value){
         nameField.setText(value.getName());
         surnameField.setText(value.getSurname());
@@ -59,6 +67,7 @@ public class StudentInfoDialog extends JDialog {
 
     private void onOK() {
         // add your code here
+        okListener.accept(new Student(nameField.getText(), surnameField.getText(), gradeField.getText(), Integer.parseInt(ageField.getText()), Integer.parseInt(idField.getText())));
         dispose();
     }
 
