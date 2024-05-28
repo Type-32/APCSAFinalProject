@@ -3,14 +3,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainUI extends JFrame {
-    private JTree studentPanel;
     private JButton add;
     private JButton remove;
-    private JButton look;
-    private JButton print;
-    private JTextPane title;
     private JButton quit;
     private JPanel mainWindow;
+    private JTree studentPanel;
+    private JButton look;
+    private JButton print;
 
     public static Roster roster;
 
@@ -32,6 +31,12 @@ public class MainUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showSpecificInfoDialog();
+            }
+        });
+        quit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
     }
