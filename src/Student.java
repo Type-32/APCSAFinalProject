@@ -12,7 +12,16 @@ public class Student {
 
     @Override
     public String toString() {
-        return String.format("%s %s, Age %s, Grade %s, ID %s", getName(), getSurname(), getAge(), getGrade(), getId());
+        return String.format("%s-%s-%s-%s-%s", getName(), getSurname(), getAge(), getGrade(), getId());
+    }
+
+    public static String parseFromString(String str) {
+        String[] parts = str.split("-");
+        return String.format("Name: %s;   Age: %s   Grade: %s   ID: %s", parts[0] + " " + parts[1], parts[2], parts[3], parts[4]);
+    }
+
+    public String toProperString() {
+        return parseFromString(toString());
     }
 
     public String getName() {

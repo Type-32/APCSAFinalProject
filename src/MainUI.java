@@ -50,12 +50,25 @@ public class MainUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showSpecificInfoDialog(p -> {
-                    if(roster.lookForRoster(p.getSurname()) != null)
-                        studentPanel.setSelectionPath(new TreePath(roster.lookForRoster(p.getSurname())));
-                    else if (roster.lookForRoster(p.getId()) != null)
-                        studentPanel.setSelectionPath(new TreePath(roster.lookForRoster(p.getId())));
-                    else
+                    if (roster.lookForRoster(p.getSurname()) != null) {
+                        Student student = roster.lookForRoster(p.getSurname());
+                        TreeNode[] nodes = findTreePath(student);
+                        if (nodes != null) {
+                            studentPanel.setSelectionPath(new TreePath(nodes));
+                        } else {
+                            showErrorDialog("Student not found in the tree.");
+                        }
+                    } else if (roster.lookForRoster(p.getId()) != null) {
+                        Student student = roster.lookForRoster(p.getId());
+                        TreeNode[] nodes = findTreePath(student);
+                        if (nodes != null) {
+                            studentPanel.setSelectionPath(new TreePath(nodes));
+                        } else {
+                            showErrorDialog("Student not found in the tree.");
+                        }
+                    } else {
                         showErrorDialog("Student not found.");
+                    }
                 });
             }
         });
@@ -69,9 +82,9 @@ public class MainUI extends JFrame {
 
                     // If only two nodes, then the user must've selected a Student node.
                     if(nodes.length == 2) {
-                        showInfoDialog("Print Output", roster.lookForRoster(nodes[1]).toString());
-                    } else if(nodes.length == 3) {
-                        showInfoDialog("Print Output", nodes[2]);
+                        showInfoDialog("Print Output", roster.lookForRoster(nodes[1]).toProperString());
+                    } else if(nodes.length >= 3) {
+                        showInfoDialog("Print Output", Student.parseFromString(nodes[2]));
                     } else {
                         showErrorDialog("Please select a valid student.");
                     }
@@ -144,30 +157,37 @@ public class MainUI extends JFrame {
 
         studentPanel.clearSelection();
         studentPanel.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-        studentPanel.addTreeSelectionListener(new TreeSelectionListener() {
-            @Override
-            public void valueChanged(TreeSelectionEvent e) {
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode)
-                        studentPanel.getLastSelectedPathComponent();
-
-                if (node == null)
-                    //Nothing is selected.
-                    return;
-
-//                Object nodeInfo = node.getUserObject();
-//                if (node.isLeaf()) {
-//                    BookInfo book = (BookInfo)nodeInfo;
-//                    displayURL(book.bookURL);
-//                } else {
-//                    displayURL(helpURL);
-//                }
-            }
-        });
 
         studentPanel.setModel(new DefaultTreeModel(root));
         studentPanel.updateUI();
 
         studentPanel.repaint();
         studentPanel.setEditable(false);
+    }
+
+    private TreeNode[] findTreePath(Student student) {
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) studentPanel.getModel().getRoot();
+        DefaultMutableTreeNode studentNode = findStudentNode(root, student);
+        if (studentNode != null) {
+            return studentNode.getPath();
+        }
+        return null;
+    }
+
+    private DefaultMutableTreeNode findStudentNode(DefaultMutableTreeNode node, Student student) {
+        if (node.getUserObject() instanceof Student) {
+            Student nodeStudent = (Student) node.getUserObject();
+            if (nodeStudent.equals(student)) {
+                return node;
+            }
+        }
+        for (int i = 0; i < node.getChildCount(); i++) {
+            DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) node.getChildAt(i);
+            DefaultMutableTreeNode foundNode = findStudentNode(childNode, student);
+            if (foundNode != null) {
+                return foundNode;
+            }
+        }
+        return null;
     }
 }
