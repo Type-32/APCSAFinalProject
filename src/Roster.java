@@ -28,32 +28,15 @@ public class Roster {
     }
 
     public boolean removeRoster(Student student){
-        myRoster.remove(student);
-        return myRoster.contains(student);
+        return myRoster.remove(student);
     }
 
     public boolean removeRoster(String surname){
-        AtomicBoolean success = new AtomicBoolean(false);
-        myRoster.forEach(i -> {
-            if(i.getSurname().equals(surname)) {
-                myRoster.remove(i);
-                success.set(true);
-                return;
-            }
-        });
-        return success.get();
+        return myRoster.remove(lookForRoster(surname));
     }
 
     public boolean removeRoster(int id){
-        AtomicBoolean success = new AtomicBoolean(false);
-        myRoster.forEach(i -> {
-            if(i.getId() == id) {
-                myRoster.remove(i);
-                success.set(true);
-                return;
-            }
-        });
-        return success.get();
+        return myRoster.remove(lookForRoster(id));
     }
 
     public Student lookForRoster(String surname){

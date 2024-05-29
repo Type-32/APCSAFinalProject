@@ -38,11 +38,12 @@ public class MainUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showSpecificInfoDialog(p -> {
-                    if (!roster.removeRoster(p) || !roster.removeRoster(p.getId()) || !roster.removeRoster(p.getSurname())){
+                    if (!roster.removeRoster(p) && !roster.removeRoster(p.getId()) && !roster.removeRoster(p.getSurname())){
                         showErrorDialog("Unable to remove the Student.");
                         return;
+                    } else {
+                        refreshTree();
                     }
-                    refreshTree();
                 });
             }
         });
@@ -144,24 +145,27 @@ public class MainUI extends JFrame {
     private void refreshTree(){
         studentPanel.setEditable(true);
         studentPanel.clearSelection();
-        studentPanel.removeAll();
-        studentPanel.repaint();
-        studentPanel.revalidate();
 
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Students Database");
+        studentPanel.setModel(new DefaultTreeModel(root));
+        studentPanel.updateUI();
+
         roster.getMyRoster().forEach(i -> {
             DefaultMutableTreeNode node = new DefaultMutableTreeNode(String.format("%s", i.getSurname()));
             node.add(new DefaultMutableTreeNode(i));
             root.add(node);
         });
 
+        if(roster.getMyRoster().isEmpty()){
+            DefaultMutableTreeNode node = new DefaultMutableTreeNode("Please add a student object. The database is empty.");
+            root.add(node);
+        }
+
         studentPanel.clearSelection();
         studentPanel.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
         studentPanel.setModel(new DefaultTreeModel(root));
         studentPanel.updateUI();
-
-        studentPanel.repaint();
         studentPanel.setEditable(false);
     }
 
