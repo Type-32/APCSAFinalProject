@@ -17,7 +17,7 @@ public class Student {
 
     public static String parseFromString(String str) {
         String[] parts = str.split("-");
-        return String.format("Name: %s;   Age: %s   Grade: %s   ID: %s", parts[0] + " " + parts[1], parts[2], parts[3], parts[4]);
+        return String.format("Name: %s;   Age: %s;   Grade: %s;   ID: %s", parts[0] + " " + parts[1], parts[2], parts[3], parts[4]);
     }
 
     public String toProperString() {
