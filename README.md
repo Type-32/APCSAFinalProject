@@ -4,7 +4,6 @@ The School Manager Java Executable is made primarily using Java Swing as its UI 
 UI actions and operations that eases the entire managing process, compared to a traditional CLI Application.
 
 ## UI/UX
-![Window.png](assets/Window.png)
 The UI, due to the limitations with the Java Swing Framework (Extremely Old), is aesthetically limited. However, the UI 
 of this application is designed with user-friendly operations in mind, with a clean, sleek, and direct interface and a 
 tree-based hierarchy view on the right displayed in a large portion on the screen that directly gives insight to the student database.
@@ -25,12 +24,10 @@ database itself is a non-unique entry database, so duplicates of students may be
 By clicking on the “Remove” or the “Look” button, a dialog shown above will pop out. In this dialog shows two fields: “Search by Surname” and “Search by ID.”
 * To Remove a student from the Database, simply enter the surname and/or the ID of the student you want to remove. Upon pressing OK, if the student exists within the database, the student will be removed and the tree view will be updated.
 * To Look for a student from the Database, simply enter the surname and/or the ID of the student you want to look up. Upon pressing OK, if the student is found, it will automatically select that student within the tree view. If not, an error dialog will pop out.
-![Select.png](assets/Select.png)
 * To print out a student’s information, select a student entry in the tree hierarchy view and then press the “Print” button.
 
 After pressing the print button, it will pop up a dialog:
 
-[//]: # (![Print.png]&#40;assets/Print.png&#41;)
 
 This dialog shows the student print output formatted in a more readable way.
 If you press the print button without selecting a student entry, an error dialog will pop up.
