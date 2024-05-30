@@ -29,7 +29,8 @@ By clicking on the “Remove” or the “Look” button, a dialog shown above w
 * To print out a student’s information, select a student entry in the tree hierarchy view and then press the “Print” button.
 
 After pressing the print button, it will pop up a dialog:
-![Print.png](assets/Print.png)
+
+[//]: # (![Print.png]&#40;assets/Print.png&#41;)
 
 This dialog shows the student print output formatted in a more readable way.
 If you press the print button without selecting a student entry, an error dialog will pop up.
